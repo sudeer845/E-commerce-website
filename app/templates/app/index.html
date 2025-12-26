@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+
+    <title>Dairy Products |{% block title %}{% endblock title %} </title>
+</head>
+<body style="margin-bottom:100px;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src= "{% static 'app/images/msd.png' %}" width="70px" height="55px">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if  request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">MilkShake</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-cream</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'about' %}">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'contact' %}">Contact us</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex col-sm-5 sm-col-5" role="search" action="/search" method="GET">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search" />
+                    <button class="btn btn-outline-dark fw-bold" type="submit">Search</button>
+                </form>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="profiledown" role="button" data-bs-toggle="dropdown">{{request.user}}</a>
+                        <ul class="dropdown-menu" aria-labelledby="profiledown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="{% url 'showcart' %}"><span class="badge bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span>Cart</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="#"><span class="badge bg-danger">{% if wishitem > 0 %}{{wishitem}}{% endif %}</span><i class="fa-regular fa-heart"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white" href="{% url 'customerregistration' %}">Registration</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    {% block banner-slider %}{% endblock banner-slider %}
+    {% block information %}{% endblock information %}
+    {% block main-content %}{% endblock main-content %}
+    {% block payment-gateway %}{% endblock payment-gateway %}
+
+    <footer class="container-fluid text-center bg-dark text-white p-2 mt-5 fixed-bottom">
+        copyright : 2025 || Develop by : M.Sudeer
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'app/js/myscript.js'%}"></script>
+    <script src="{% static 'app/js/all.min.js'%}"></script>
+    <script src="{% static 'app/js/owl.carousel.min.js'%}"></script>
+
+</body>
+
+<script>
+    $('.plus-cart').click(function(){
+    var id=$(this).attr("pid").toString();
+    var eml=this.parentNode.children[2] 
+    $.ajax({
+        type:"GET",
+        url:"/pluscart",
+        data:{
+            prod_id:id
+        },
+        success:function(data){
+            console.log("Quantity:",data.quantity)
+            eml.innerText=data.quantity 
+            document.getElementById("amount").innerText=data.amount 
+            document.getElementById("totalamount").innerText=data.totalamount
+        }
+    })
+})
+
+$('.minus-cart').click(function(){
+    var id=$(this).attr("pid").toString();
+    var eml=this.parentNode.children[2] 
+    $.ajax({
+        type:"GET",
+        url:"/minuscart",
+        data:{
+            prod_id:id
+        },
+        success:function(data){ 
+            eml.innerText=data.quantity 
+            document.getElementById("amount").innerText=data.amount 
+            document.getElementById("totalamount").innerText=data.totalamount
+        }
+    })
+})
+
+
+$('.remove-cart').click(function(){
+    var id=$(this).attr("pid").toString();
+    var eml=this
+    $.ajax({
+        type:"GET",
+        url:"/removecart",
+        data:{
+            prod_id:id
+        },
+        success:function(data){
+            document.getElementById("amount").innerText=data.amount 
+            document.getElementById("totalamount").innerText=data.totalamount
+            eml.parentNode.parentNode.parentNode.parentNode.remove() 
+        }
+    })
+})
+
+$('.plus-wishlist').click(function(){
+    var id=$(this).attr("pid").toString();
+    $.ajax({
+        type:"GET",
+        url:"/pluswishlist",
+        data:{
+            prod_id:id
+        },
+        success:function(data){
+            //alert(data.message)
+            window.location.href = `http://localhost:8000/product-detail/${id}`
+        }
+    })
+})
+
+
+$('.minus-wishlist').click(function(){
+    var id=$(this).attr("pid").toString();
+    $.ajax({
+        type:"GET",
+        url:"/minuswishlist",
+        data:{
+            prod_id:id
+        },
+        success:function(data){
+            window.location.href = `http://localhost:8000/product-detail/${id}`
+        }
+    })
+})
+</script>
+</html>
